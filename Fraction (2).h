@@ -1,24 +1,48 @@
 #pragma once
+
+
+/**
+* \brief РљР»Р°СЃСЃ Fraction РґР»СЏ РїСЂРµРґСЃС‚Р°РІР»РµРЅРёСЏ РґСЂРѕР±Рё РІРёРґР° <С†РµР»Р°СЏ С‡Р°СЃС‚СЊ>.<РґСЂРѕР±РЅР°СЏ С‡Р°СЃС‚СЊ>
+*/
 class Fraction {
 private:
-    long int int_part; //целая часть числа
 
-    unsigned short fract_part; //дробная часть числа
+    long int int_part; //С†РµР»Р°СЏ С‡Р°СЃС‚СЊ С‡РёСЃР»Р°
 
-    const int max_fract_count = 4;  //максимальное кол-во цифр в дробной части
+    unsigned short fract_part; //РґСЂРѕР±РЅР°СЏ С‡Р°СЃС‚СЊ С‡РёСЃР»Р°
 
-    int count_digits(int num); //подсчёт количество цифр в числе
+    const int MAX_FRACT_COUNT = 4;  //РјР°РєСЃРёРјР°Р»СЊРЅРѕРµ РєРѕР»-РІРѕ С†РёС„СЂ РІ РґСЂРѕР±РЅРѕР№ С‡Р°СЃС‚Рё
+
+    int count_digits(int num); //РїРѕРґСЃС‡С‘С‚ РєРѕР»РёС‡РµСЃС‚РІРѕ С†РёС„СЂ РІ С‡РёСЃР»Рµ
 
 public:
-    Fraction(long int int_part, unsigned short fract_part); //конструктор дробного числа
+    /**
+    * \brief РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РґСЂРѕР±РЅРѕРіРѕ С‡РёСЃР»Р°
+    */
+    Fraction(long int int_part, unsigned short fract_part);
 
-    Fraction operator+(const Fraction& other); //сложение двух дробных чисел
+    /**
+    * \brief СЃР»РѕР¶РµРЅРёРµ РґРІСѓС… РґСЂРѕР±РЅС‹С… С‡РёСЃРµР»
+    */
+    Fraction operator+(const Fraction& other); 
 
-    Fraction operator-(const Fraction& other); //вычитание двух дробных чисел
+    /**
+    * \brief РІС‹С‡РёС‚Р°РЅРёРµ РґРІСѓС… РґСЂРѕР±РЅС‹С… С‡РёСЃРµР»
+    */
+    Fraction operator-(const Fraction& other);
 
-    Fraction operator*(const Fraction& other); // умножение двух дробных чисел
+    /**
+    * \brief СѓРјРЅРѕР¶РµРЅРёРµ РґРІСѓС… РґСЂРѕР±РЅС‹С… С‡РёСЃРµР»
+    */
+    Fraction operator*(const Fraction& other);
 
-    bool operator==(const Fraction& other); //сравнение двух дробных чисел
+    /**
+    * \brief СЃСЂР°РІРЅРµРЅРёРµ РґРІСѓС… РґСЂРѕР±РЅС‹С… С‡РёСЃРµР»
+    */
+    bool operator==(const Fraction& other);
 
-    void print(); //вывод на экран дробного числа в виде 1.1234
+    /**
+    * \brief РџРµСЂРµРіСЂСѓР¶РµРЅРЅС‹Р№ РѕРїРµСЂР°С‚РѕСЂ РІС‹РІРѕРґР°
+    */
+    friend std::ostream& operator<< (std::ostream& out, const Fraction& point); 
 };
