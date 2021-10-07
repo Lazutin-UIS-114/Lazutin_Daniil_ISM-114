@@ -1,5 +1,5 @@
-﻿#include <iostream>
-#include <math.h>
+#include <iostream>
+#include <cmath>
 #include "Fraction.h"
 
 using namespace std;
@@ -17,8 +17,8 @@ int Fraction::count_digits(int num) { //подсчёт количество ци
 }
 
 Fraction::Fraction(long int int_part, unsigned short fract_part) : int_part(int_part), fract_part(fract_part) { //конструктор
-	if (count_digits(fract_part) > max_fract_count) { //в дробной части можно хранить только 4-х значные числа
-		cout << "Превышено максимальное значение для дробной части, информация может быть потеряна.";
+	if (count_digits(fract_part) > MAX_FRACT_COUNT) { //в дробной части можно хранить только 4-х значные числа
+		throw "Превышено максимальное значение для дробной части, информация может быть потеряна.";
 	}
 }
 
@@ -27,7 +27,7 @@ Fraction Fraction::operator+(const Fraction& other) { //сложение
 	// а от дробной отнимаем 1 разряд, то есть 10000
 	unsigned short fract_tmp = fract_part + other.fract_part;
 	int int_tmp = 0;
-	if (count_digits(fract_tmp) > max_fract_count) {
+	if (count_digits(fract_tmp) > MAX_FRACT_COUNT) {
 		int_tmp++;
 		fract_tmp -= 10000;
 	}
@@ -79,7 +79,7 @@ Fraction Fraction::operator*(const Fraction& other) { // умножение
 	double int_tmp = int_part;
 	double fract_tmp = modf(res, &int_tmp); //разделили дробную и целую части
 
-	return Fraction(int(int_tmp), short(fract_tmp * 10000));
+	return Fraction(static_cast<int>(int_tmp), static_cast<short>(fract_tmp * 10000));
 }
 
 
@@ -87,11 +87,12 @@ bool Fraction::operator==(const Fraction& other) { //сравнение
 	return int_part == other.int_part && fract_part == other.fract_part;
 }
 
-void Fraction::print() { //вывод на экран
-	cout << int_part << ".";
-	cout.fill('0');
-	cout.width(max_fract_count);
-	cout << fract_part << endl;
+std::ostream& operator<< (std::ostream& out, const Fraction& point) {
+	out << point.int_part << ".";
+	out.fill('0');
+	out.width(point.MAX_FRACT_COUNT);
+	out << point.fract_part << endl;
+	return out;
 }
 
 
